@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: jenkins-java-demo
-        image: ${ORIGIN_REPO}/${REPO}:${IMAGE_TAG}
+        image: IMAGE
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
