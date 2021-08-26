@@ -6,7 +6,7 @@ pipeline{
         ORIGIN_REPO =  sh(returnStdout: true,script: 'echo $origin_repo').trim()
         REPO =  sh(returnStdout: true,script: 'echo $repo').trim()
         BRANCH =  sh(returnStdout: true,script: 'echo $branch').trim()
-        IMAGE = sh(returnStdout: true,script: 'echo $ORIGIN_REPO/$ORIGIN_REPO:$IMAGE_TAG').trim()
+            IMAGE = sh(returnStdout: true,script: 'echo $origin_repo/$repo:$image_tag').trim()
       }
 
       // 定义本次构建使用哪个标签的构建环境，本示例中为 “slave-pipeline”
