@@ -6,6 +6,7 @@ pipeline{
         ORIGIN_REPO =  sh(returnStdout: true,script: 'echo $origin_repo').trim()
         REPO =  sh(returnStdout: true,script: 'echo $repo').trim()
         BRANCH =  sh(returnStdout: true,script: 'echo $branch').trim()
+        IMAGE = sh(returnStdout: true,script: 'echo $ORIGIN_REPO/$ORIGIN_REPO:$IMAGE_TAG').trim()
       }
 
       // 定义本次构建使用哪个标签的构建环境，本示例中为 “slave-pipeline”
@@ -47,7 +48,8 @@ pipeline{
         stage('Deploy to Kubernetes') {
           steps {
             container('kubectl') {
-              step([$class: 'KubernetesDeploy', authMethod: 'certs', apiServerUrl: 'https://kubernetes.default.svc.cluster.local:443', credentialsId:'k8sCertAuth', config: 'deployment.yaml',variableState: 'ORIGIN_REPO,REPO,IMAGE_TAG'])
+              sh "sed -i  's#IMAGE#${IMAGE}#g' deployment.yaml"
+              sh "kubectl apply -f deployment.yaml
             }
           }
         }
