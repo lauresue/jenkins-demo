@@ -49,7 +49,7 @@ pipeline{
           steps {
             container('kubectl') {
               sh "sed -i  's#IMAGE#${IMAGE}#g' deployment.yaml"
-              sh "kubectl apply -f deployment.yaml
+              sh "kubectl apply -f deployment.yaml"
             }
           }
         }
